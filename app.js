@@ -7,16 +7,29 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var student = require('./routes/assignment');
 
 var app = express();
 
-var MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect("mongodb://localhost:27017/clientDb", function(err, db) {
-  if(!err) {
-    console.log("We are connected to mongo");
+// Mongo setup
+var mongoose = require('mongoose');
+
+var mongoURI = "mongodb://localhost:27017/assignments";
+var MongoDB = mongoose.connect(mongoURI).connection;
+MongoDB.on('error', function (err) {
+  if (err) {
+    console.log('mongodb connection error', err);
+  } else {
+    console.log('mongodb connection successful');
   }
 });
+
+MongoDB.once('open', function () {
+  console.log('mongodb connection open');
+});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/assignment', student);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
