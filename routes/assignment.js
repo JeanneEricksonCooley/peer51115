@@ -6,6 +6,7 @@ var Student = require('../models/assignment');
 
 /* GET  listing. */
 router.get('/', function(req, res, next) {
+    console.log("MADE IT HERE!");
     Student.find(function (err, todos) {
         if (err) return next(err);
         res.json(todos);

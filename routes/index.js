@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-//var path = require('path');
+var path = require('path');
 
 //var mongoose = require('mongoose');
 //var path = require('path');
@@ -11,7 +11,6 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.resolve(__dirname, '../views/index.html'));
-  if (err) return next(err);
 });
 
 //router.post('/', function(req, res, next) {
